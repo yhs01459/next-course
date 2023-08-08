@@ -1,17 +1,13 @@
 
 import './App.css';
+import Todo from './components/Todo';
 
 function App() {
   return (
     <div>
       <h1>My Todos</h1>
-      <div className = 'card'>
-        <h1>Title</h1>
-        <div className = 'actions'>
-          <button className='btn'>Delete</button>
-        </div>
-      </div>
-
+      <Todo text='yoon'></Todo>
+      <Todo text ='choi'></Todo>
     </div>
   );
 }
