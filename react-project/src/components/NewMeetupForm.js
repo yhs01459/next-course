@@ -3,7 +3,7 @@ import classes from './NewMeetupForm.module.css';
 import { useRef } from "react";
 
 
-const NewMeetupForm = () => {
+const NewMeetupForm = (props) => {
 
     const titleInputRef = useRef();
     const imageInputRef = useRef();
@@ -25,7 +25,7 @@ const NewMeetupForm = () => {
             desc: getDesc,
         };
 
-        console.log(meetupData);
+        props.addMeetup(meetupData);
     }
 
     
