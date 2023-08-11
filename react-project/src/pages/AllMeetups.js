@@ -1,4 +1,5 @@
 import MeetupList from "../components/MeetupList";
+import { useState, useEffect } from "react";
 
 const DUMMY_DATA = [
     {
@@ -22,10 +23,39 @@ const DUMMY_DATA = [
 ];
 
 function AllMeetupsPage(){
+  const [loading, setLoading] = useState(true);
+  const [loadedMeetups, setLoadedMeetups] = useState([]);
+
+  useEffect(()=>{
+    fetch('https://fir-project-70504-default-rtdb.asia-southeast1.firebasedatabase.app/meetups.json')
+    .then((response)=> {return response.json();})
+    .then((data)=>{
+      const meetups = [];
+      for (const key in data){
+        const meetup = {
+          id:key,
+          ...data[key]
+        };
+        meetups.push(meetup);
+      }
+
+      setLoading(false);
+      setLoadedMeetups(meetups);
+    });
+  },[]);
+
+   
+
+    if(loading){
+      return <section>
+        <p>loading...</p>
+      </section>
+    }
+
     return (
         <div>
          <h1>All Meetups page</h1>
-         <MeetupList meetups={DUMMY_DATA}></MeetupList>
+         <MeetupList meetups={loadedMeetups}></MeetupList>
         </div>
     );
 }
