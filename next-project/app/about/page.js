@@ -12,7 +12,10 @@ const AboutPage = () => {
             <ul>
                 {user.map( (m) => (
                     <li key={m.id}>
-                        <Link href={`/about/${m.id}`}>{m.name}</Link>
+                        <Link href={ {
+                            pathname : "/about/[id].page.js",
+                            query : {id:m.id}
+                        }}>{m.name}</Link>
                     </li>
                 ))}
             </ul>
