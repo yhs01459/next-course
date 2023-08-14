@@ -1,8 +1,10 @@
-import Link from "next/link";
+
 import classes from "./EventItem.module.css";
+import Button from "@/ui/button";
 
 const EventItem = (props) => {
     const { id, title,location,date,image } = props;
+    const toEventListPage = `/events/${id}`;
     const readDate = new Date(date).toLocaleDateString(
         'en-us',
         {
@@ -27,7 +29,7 @@ return(
             </div>
         </div>
             <div className={classes.actions}>
-                <Link href={`/events/${id}`}>explore event</Link>
+                <Button link={toEventListPage}>explore event</Button>
             </div>
     </li>
 )
