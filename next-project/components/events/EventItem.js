@@ -3,7 +3,7 @@ import classes from "./EventItem.module.css";
 import DateIcon from "../icons/DateIcon";
 import AddressIcon from "../icons/AddressIcon";
 import ArrowRightIcon from "../icons/ArrowRightIcon";
-import Button from "../ui/button";
+import Button from "../ui/Button";
 
 const EventItem = (props) => {
     const { id, title,location,date,image } = props;
