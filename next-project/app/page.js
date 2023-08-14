@@ -1,6 +1,5 @@
 import EventList from "@/components/events/EventList";
 import { getFeaturedEvents } from "@/dummy-data";
-import Link from "next/link";
 
 const HomePage = () => {
   const getEvents = getFeaturedEvents();
