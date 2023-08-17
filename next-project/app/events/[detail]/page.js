@@ -1,19 +1,14 @@
-'use client'
+
 import EventContent from "@/components/events/events-detail/event-content";
 import EventLogistics from "@/components/events/events-detail/event-logistics";
 import EventSummary from "@/components/events/events-detail/event-summary";
-import { getEventById } from "@/dummy-data";
-
-import { usePathname } from 'next/navigation'
 import { Fragment } from "react";
 
-const EventDetailPage = () => {
+const EventDetailPage = async(props) => {
   
-  const pathName = usePathname();
-  const eventId = pathName.slice(8);
-  console.log(eventId);
-  const event = getEventById(eventId);
-
+  
+  const getEvent = await getData(props.params);
+  const event = getEvent[0];
     if(!event){
       return <p> 이벤트가 존재하지 않습니다. </p>
     }
@@ -29,3 +24,26 @@ const EventDetailPage = () => {
     );
   }
   export default EventDetailPage;
+
+  export const getData = async(params) => {
+    const eventId = params.detail;
+    const response = await fetch(`https://fir-project-70504-default-rtdb.asia-southeast1.firebasedatabase.app/enents.json`);
+    const data = await response.json();
+    const transData = [];
+    for (const key in data){
+      if(eventId==key){
+        
+        transData.push({
+          id:key,
+          date:data[key].date,
+          desc:data[key].description,
+          image:data[key].image,
+          isFeatured:data[key].isFeatured,
+          location:data[key].location,
+          title:data[key].title,
+        })
+      }
+    };
+    return transData;
+  
+  }
