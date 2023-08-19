@@ -1,4 +1,5 @@
 import EventList from "@/components/events/EventList";
+import NewsletterRegistration from "@/components/input/NewsletterRegistration";
 
 
 export const metadata = {
@@ -10,11 +11,9 @@ export const metadata = {
 const HomePage = async() => {
   const getEvents = await getData();
   
-
   return(
     <div>
-
-      <h1>WELCOME HOME PAGE</h1>
+      <NewsletterRegistration />
       <EventList item = {getEvents}></EventList>
     </div>
   )
