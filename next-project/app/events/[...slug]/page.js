@@ -1,12 +1,18 @@
 
 import EventList from "@/components/events/EventList";
 
+export const metadata = {
+  title: "Filterd Page",
+  description:"filteredpage",
+  }
+
 const EventFilterPage = async (props) => {
   const filterdEvents = await getData(props.params);
 
     
     return(
       <div>
+  
         <EventList item={filterdEvents}></EventList>
       </div>
     )

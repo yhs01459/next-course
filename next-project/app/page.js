@@ -1,10 +1,19 @@
 import EventList from "@/components/events/EventList";
 
+
+export const metadata = {
+  title: "HomePage",
+  description:"homepage",
+};
+
+
 const HomePage = async() => {
   const getEvents = await getData();
+  
 
   return(
     <div>
+
       <h1>WELCOME HOME PAGE</h1>
       <EventList item = {getEvents}></EventList>
     </div>

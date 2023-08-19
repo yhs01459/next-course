@@ -48,6 +48,7 @@ const EventsPage = () => {
 
   return (
     <>
+  
       <EventFilter onSearch={searchHandler}></EventFilter>
       <EventList item={events} />;
     </>

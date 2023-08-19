@@ -4,6 +4,7 @@ import DateIcon from "../icons/DateIcon";
 import AddressIcon from "../icons/AddressIcon";
 import ArrowRightIcon from "../icons/ArrowRightIcon";
 import Button from "../ui/Button";
+import Image from "next/image";
 
 const EventItem = (props) => {
     const { id, title,location,date,image } = props;
@@ -19,7 +20,7 @@ const EventItem = (props) => {
     const address = location.replace(', ','\n ');
 return(
     <li className={classes.item}>
-        <img src={'/'+ image} alt={title}></img>
+        <Image src={'/'+ image} alt={title} width={400} height={160}></Image>
         <div className={classes.content}>
             <div>
                 <h2>{title}</h2>

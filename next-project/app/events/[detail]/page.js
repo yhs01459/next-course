@@ -4,6 +4,11 @@ import EventLogistics from "@/components/events/events-detail/event-logistics";
 import EventSummary from "@/components/events/events-detail/event-summary";
 import { Fragment } from "react";
 
+export const metadata = {
+  title: "Event Detail Page",
+  description:"event_detail_page",
+}
+
 const EventDetailPage = async(props) => {
   
   
@@ -15,6 +20,7 @@ const EventDetailPage = async(props) => {
 
     return(
       <Fragment>
+     
         <EventSummary title={event.title}></EventSummary>
         <EventLogistics date={event.date} address={event.location} image={event.image} imageAlt={event.title}></EventLogistics>
         <EventContent>
