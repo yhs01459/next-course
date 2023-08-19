@@ -1,5 +1,7 @@
 "use client";
+import Link from "next/link";
 import { useRef } from "react";
+import { useState } from "react";
 
 export default function Home() {
   const myEmail = useRef();
@@ -9,6 +11,7 @@ export default function Home() {
     event.preventDefault();
 
     const getFormData = {
+      id: String(Date()),
       email: myEmail.current.value,
       feedback: myFeedback.current.value,
     };
@@ -18,7 +21,6 @@ export default function Home() {
     fetch("/api/feedback", {
       method: "POST",
       body: JSON.stringify(getFormData),
-
       headers: {
         "Content-type": "application/json",
       },
@@ -29,7 +31,6 @@ export default function Home() {
 
   return (
     <div>
-      <h1>냐미 </h1>
       <form onSubmit={submitHnadler}>
         <div>
           <label htmlFor="email">input your email</label>
@@ -41,6 +42,7 @@ export default function Home() {
         </div>
         <button>submit</button>
       </form>
+      <Link href="/feedback">데이터 목록</Link>
     </div>
   );
 }
