@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import CommentList from './CommentList';
 import NewComment from './NewComment';
@@ -21,8 +21,15 @@ const Comments = (props) => {
   }
 
   function addCommentHandler(commentData) {
-    // send data to API
+    
+    fetch(`/api/${commentData.email}`, {
+      method:'POST',
+      body:JSON.stringify(commentData),
+    })
+    .then((res)=>res.json())
+    .then((data)=>console.log(data));
   }
+
 
   return (
     <section className={classes.comments}>
