@@ -2,6 +2,8 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import MainHeader from "./main-header";
 const inter = Inter({ subsets: ["latin"] });
+import { NotificationProvider } from "@/store/notification-context";
+import Notis from "./notis/page";
 
 export const metadata = {
   title: "Create Next App",
@@ -13,8 +15,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <section>
-          <MainHeader></MainHeader>
-          {children}
+          <NotificationProvider>
+            <MainHeader></MainHeader>
+            {children}
+            <Notis />
+          </NotificationProvider>
         </section>
       </body>
     </html>

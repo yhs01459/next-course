@@ -8,7 +8,7 @@ export const POST = async(req) => {
   
     console.log(email);
 
-    return NextResponse.json({message:'suecces'});
+    return NextResponse.json({message:'suecces', email:email});
 }
 
 export const GET = async(req) => {

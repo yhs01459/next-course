@@ -16,6 +16,7 @@ const HomePage = async() => {
       <NewsletterRegistration />
       <EventList item = {getEvents}></EventList>
     </div>
+
   )
 }
 export default HomePage;
