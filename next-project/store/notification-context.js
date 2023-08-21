@@ -1,51 +1,52 @@
-'use client'
-import { createContext, useState } from "react"
+"use client";
+import { createContext, useState } from "react";
 
-// 알람 context 객체 
-const NotificationContext = createContext( 
-    {
-        notification : {title:"test", message:"test", status:"success"},
-        showNotification : (notificationData) => {},
-        hideNotification : () => {},
-    }
-);
+// 알람 context 객체
+export const NotificationContext = createContext({
+  state: { title: "empty", message: "empty", status: "empty" },
+  action: {
+    showNotification: (notificationData) => {},
+    hideNotification: () => {},
+  },
+});
 
 // context provider
 export const NotificationProvider = (props) => {
-    
-    const [activeNotification, setActiveNotification] = useState(NotificationContext);
+  const [activeNotification, setActiveNotification] = useState({
+    title: "test1",
+    message: "test1",
+    statue: "success",
+  });
 
-    console.log(`notis provider !!`)
+  const showNotificationHandler = (notificationData) => {
+    setActiveNotification({
+      title: notificationData.title,
+      message: notificationData.message,
+      status: notificationData.status,
+    });
+    console.log(`show notis handler?${notificationData.title}`);
+  };
 
-    const showNotificationHandler = (notificationData) => {
-        setActiveNotification({
-            title:notificationData.title,
-            message:notificationData.message,
-            status:notificationData.status,
-        })
-        console.log(`show notis handler?${activeNotification}`);
-    }
+  const hideNotificationHandler = () => {
+    setActiveNotification({});
+  };
 
-    const hideNotificationHandler = () => {
-        setActiveNotification(null)
-    }
+  // 현자 상태, show handler, hide handler 를 자식들에게 전달
 
-    // 현자 상태, show handler, hide handler 를 자식들에게 전달 
-    const context = {
-        norification:activeNotification, 
-        showNotification:showNotificationHandler, 
-        hideNotification:hideNotificationHandler,
-    };
+  console.log(`현재 알림 상태는 ? ${activeNotification.notification}`);
 
-    
-    //provider에 의해 감싸진 컴포넌트들은 value값으로 전달된 context를 조회하고 사용할 수 있다.
-    return (
-        <>
-         <NotificationContext.Provider value={context}> 
-           {props.children}
-          </NotificationContext.Provider>
-        </>
-    );
-}
+  const context = {
+    state: activeNotification,
+    action: {
+      showNotification: showNotificationHandler,
+      hideNotification: hideNotificationHandler,
+    },
+  };
 
-export default NotificationContext;
+  //provider에 의해 감싸진 컴포넌트들은 value값으로 전달된 context를 조회하고 사용할 수 있다.
+  return (
+    <NotificationContext.Provider value={context}>
+      {props.children}
+    </NotificationContext.Provider>
+  );
+};

@@ -1,43 +1,42 @@
-'use client'
-import classes from './NewsletterRegistration.module.css';
-import { useRef, useContext } from 'react';
-import NotificationContext from '@/store/notification-context';
+"use client";
+import classes from "./NewsletterRegistration.module.css";
+import { useRef, useContext } from "react";
+import { NotificationContext } from "@/store/notification-context";
 
 function NewsletterRegistration() {
   const inputEmail = useRef();
-  const notificationCtx = useContext(NotificationContext);
-  
-  
+  const { action } = useContext(NotificationContext);
 
   function registrationHandler(event) {
     event.preventDefault();
     console.log(`버튼 클릭`);
-    
-    notificationCtx.showNotification({
-      title:"연결 중",
-      message:"연결 중",
-      status:"pending",
-    })
-    console.log(`연결중입니다${notificationCtx.title}`);
-    
-    
-    const jData = {id:inputEmail.current.value, email:inputEmail.current.value};
-    
-  
-    fetch('/api',{
-      method:'POST',
+
+    action.showNotification({
+      title: "연결 중",
+      message: "연결 중",
+      status: "pending",
+    });
+    // console.log(`연결중입니다${title}`);
+
+    const jData = {
+      id: inputEmail.current.value,
+      email: inputEmail.current.value,
+    };
+
+    fetch("/api", {
+      method: "POST",
       body: JSON.stringify(jData),
     })
-    .then((res)=>res.json())
-    .then((data)=>{
-      console.log(data);
-      notificationCtx.showNotification({
-        title:"성공",
-        message:"데이터 저장 완료",
-        status:"success",
-      })
-      console.log(`연결 후 입니다. ${notificationCtx}`);
-    });
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        action.showNotification({
+          title: "성공",
+          message: "데이터 저장 완료",
+          status: "success",
+        });
+        // console.log(`연결 후 입니다. ${title}`);
+      });
   }
 
   return (
@@ -46,10 +45,10 @@ function NewsletterRegistration() {
       <form onSubmit={registrationHandler}>
         <div className={classes.control}>
           <input
-            type='email'
-            id='email'
-            placeholder='Your email'
-            aria-label='Your email'
+            type="email"
+            id="email"
+            placeholder="Your email"
+            aria-label="Your email"
             ref={inputEmail}
           />
           <button>Register</button>
