@@ -22,7 +22,7 @@ const Comments = (props) => {
 
   function addCommentHandler(commentData) {
     
-    fetch(`/api/${commentData.email}`, {
+    fetch(`/api/${eventId}`, {
       method:'POST',
       body:JSON.stringify(commentData),
     })
@@ -38,7 +38,6 @@ const Comments = (props) => {
       </button>
       {showComments && <NewComment onAddComment={addCommentHandler} />}
       {showComments && <CommentList />}
-       {showComments && <h1>과연</h1>}
     </section>
   );
 }

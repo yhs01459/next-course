@@ -19,11 +19,10 @@ const CommentList = (props) => {
     
   },[])
   if(!loading || !comments){
-    return(<div><h1>dddd</h1></div>);
+    return(<div><h1>댓글을 불러오는 중 입니다.</h1></div>);
   }
   return (
     <ul className={classes.comments}>
-        <li>d?</li>
        {comments.map((item)=>(
         <li key={item.email}>{item.text}</li>
        ))}
