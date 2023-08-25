@@ -1,25 +1,39 @@
 'use client'
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import classes from './auth-form.module.css';
 
-function AuthForm() {
+const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const inputEmail = useRef();
+  const inputPassword = useRef();
 
   function switchAuthModeHandler() {
     setIsLogin((prevState) => !prevState);
+  }
+  const submitHandler = async(event) => {
+    event.preventDefault();
+    const response = await fetch('/api/signup', {
+        method: 'POST',
+        body: JSON.stringify({
+            email: inputEmail.current.value,
+            password: inputPassword.current.value,
+        }),
+    })
+    const data = await response.json();
+    console.log(data);
   }
 
   return (
     <section className={classes.auth}>
       <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
-      <form>
+      <form onSubmit={submitHandler}>
         <div className={classes.control}>
           <label htmlFor='email'>Your Email</label>
-          <input type='email' id='email' required />
+          <input type='email' id='email' ref={inputEmail} required />
         </div>
         <div className={classes.control}>
           <label htmlFor='password'>Your Password</label>
-          <input type='password' id='password' required />
+          <input type='password' id='password' ref={inputPassword} required />
         </div>
         <div className={classes.actions}>
           <button>{isLogin ? 'Login' : 'Create Account'}</button>
