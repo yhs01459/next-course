@@ -1,26 +1,55 @@
 'use client'
 import { useState, useRef } from 'react';
 import classes from './auth-form.module.css';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const inputEmail = useRef();
   const inputPassword = useRef();
+  const router = useRouter();
+ 
 
   function switchAuthModeHandler() {
     setIsLogin((prevState) => !prevState);
   }
-  const submitHandler = async(event) => {
+  const submitHandler = (event) => {
     event.preventDefault();
-    const response = await fetch('/api/signup', {
+
+    if(isLogin){
+      
+      signIn('credentials', {
+        redirect: false,
+        email: inputEmail.current.value,
+        password: inputPassword.current.value,
+      })
+      .then((result)=>{
+        if(!result.error){
+          router.replace('/');
+        }
+        else{
+          console.log('로그인 실패')
+        }
+      }
+      )
+    }
+    else{
+      fetch('/api/signup', {
         method: 'POST',
         body: JSON.stringify({
             email: inputEmail.current.value,
             password: inputPassword.current.value,
         }),
     })
-    const data = await response.json();
-    console.log(data);
+    .then((res)=>res.json())
+    .then((data)=>{
+      console.log(data);
+    })
+    
+    }
+    
   }
 
   return (

@@ -1,8 +1,15 @@
+'use client';
 import Link from 'next/link';
 
+
 import classes from './main-navigation.module.css';
+import { signOut, useSession } from 'next-auth/react';
 
 function MainNavigation() {
+  const logOut = () => {
+    signOut();
+  }
+  const {data:session, state} = useSession();
   return (
     <header className={classes.header}>
       <Link href='/'>
@@ -10,15 +17,19 @@ function MainNavigation() {
       </Link>
       <nav>
         <ul>
-          <li>
+        {!session && (<li>
             <Link href='/auth'>Login</Link>
-          </li>
-          <li>
+          </li>)}
+          
+         {session && (<li>
             <Link href='/profile'>Profile</Link>
-          </li>
-          <li>
-            <button>Logout</button>
-          </li>
+          </li>)}
+          
+        {session && ( <li>
+            <button onClick={logOut}>Logout</button>
+          </li>)}
+         
+          
         </ul>
       </nav>
     </header>
